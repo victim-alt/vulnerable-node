@@ -1,0 +1,38 @@
+name: CodeQL Scan
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run CodeQL Scan
+      uses: github/codeql-action/analyze@v1
+      with:
+        languages: javascript
+        database-dump: ${{ github.workspace }}/codeql-database
+        working-directory: .
+
+    - name: Upload CodeQL results
+      uses: actions/upload-artifact@v2
+      with:
+        name: codeql-results
+        path: ${{ github.workspace }}/codeql-database
